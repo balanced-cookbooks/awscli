@@ -1,5 +1,4 @@
-site :opscode
+chef_api :config
 
-cookbook 'python'
 
 metadata
