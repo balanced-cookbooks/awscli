@@ -42,16 +42,18 @@ case node[:platform_family]
   else
 end
 
+if not node['ec2']
+  template '/root/.aws/config' do
+    source 'aws_config.erb'
+    owner 'root'
+    group 'root'
+    mode  '644'
+    variables(
+              access_key_id: citadel.access_key_id,
+              secret_access_key: citadel.secret_access_key,
+              security_token: citadel.token ? citadel.token : '',
+              region: 'us-west-1'
+              )
+  end
 
-template '/root/.aws/config' do
-  source 'aws_config.erb'
-  owner 'root'
-  group 'root'
-  mode  '644'
-  variables(
-      access_key_id: citadel.access_key_id,
-      secret_access_key: citadel.secret_access_key,
-      security_token: citadel.token ? citadel.token : '',
-      region: 'us-west-1'
-  )
 end
