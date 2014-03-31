@@ -1,2 +1,2 @@
 
-override['awscli']['users'] = ['root', 'deploy']
+override['awscli']['users'] = %w(root deploy)

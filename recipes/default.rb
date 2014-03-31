@@ -34,6 +34,8 @@ python_pip 'awscli' do
   action :install
 end
 
+log node['awscli']['users']
+
 unless node['ec2']
   vars = {
       :access_key_id => citadel.access_key_id,

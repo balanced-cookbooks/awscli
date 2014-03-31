@@ -15,4 +15,5 @@ platforms:
 suites:
   - name: default
     run_list:
+    - recipe[awscli_test]
     - recipe[awscli]
