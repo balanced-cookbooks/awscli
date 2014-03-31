@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  attributes:
+      citadel:
+        access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+        secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+    - recipe[awscli_test]
+    - recipe[awscli]

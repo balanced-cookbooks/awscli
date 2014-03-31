@@ -25,19 +25,36 @@
 #
 
 # we need python setup, alongside pip
-include_recipe "python"
+include_recipe 'balanced-apt'
+include_recipe 'python'
 
 # installs the awscli from aws
 # this gives us really sweet commands like aws s3 sync and s3 cp
-python_pip "awscli" do
+python_pip 'awscli' do
   action :install
 end
 
-case node[:platform_family]
-  # install createrepo tool as well, we need this for rpms
-  when 'rhel'
-    yum_package "createrepo" do
-      action :install
+log node['awscli']['users']
+
+unless node['ec2']
+  vars = {
+      :access_key_id => citadel.access_key_id,
+      :secret_access_key => citadel.secret_access_key,
+      :security_token => citadel.token,
+      :region => 'us-west-1',
+  }
+  node['awscli']['users'].each do |user|
+    home = node['etc']['passwd'][user]['dir']
+    directory "#{home}/.aws" do
+      owner user
+      group user
     end
-  else
+    template "#{home}/.aws/#{node['awscli']['config_name']}" do
+      source 'aws_config.erb'
+      owner user
+      group user
+      mode '644'
+      variables(vars)
+    end
+  end
 end
