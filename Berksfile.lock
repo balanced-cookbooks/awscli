@@ -1,0 +1,30 @@
+DEPENDENCIES
+  awscli
+    path: .
+    metadata: true
+  awscli_test
+    path: ./test/cookbooks/awscli_test
+
+GRAPH
+  apt (2.3.8)
+  awscli (0.1.1)
+    balanced-apt (~> 1.0.12)
+    balanced-citadel (~> 1.0.2)
+    python (~> 1.4.4)
+  awscli_test (0.0.0)
+    awscli (>= 0.0.0)
+  balanced-apt (1.0.12)
+    apt (~> 2.3)
+    balanced-citadel (~> 1.0)
+    poise (~> 1.0)
+  balanced-citadel (1.0.2)
+    citadel (>= 0.0.0)
+  build-essential (2.0.0)
+  citadel (1.0.2)
+  poise (1.0.10)
+  python (1.4.6)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  yum (3.1.4)
+  yum-epel (0.3.4)
+    yum (~> 3.0)
