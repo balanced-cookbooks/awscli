@@ -56,5 +56,9 @@ unless node['ec2']
       mode '644'
       variables(vars)
     end
+    # BOTO support
+    link "#{home}/.aws/credentials" do
+      to "#{home}/.aws/#{node['awscli']['config_name']}"
+    end
   end
 end
